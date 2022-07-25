@@ -24,19 +24,24 @@ public:
         int n = cost.size();
         int* output = new int[n+1];
         
-        // memoization
-        for(int i=0; i<=n; i++){
-            output[i] = -1;
-        }
-        int a = minCost(cost, n-1, output);
-        int b = minCost(cost, n-2, output);
-        int ans = min(a, b);
+        // // memoization
+        // for(int i=0; i<n; i++){
+        //     output[i] = -1;
+        // }
+        // int a = minCost(cost, n-1, output);
+        // int b = minCost(cost, n-2, output);
+        // int ans = min(a, b);
         
-//         output[0] = cost[0];
-//         output[1] = cost[1];
-//         for(int i=0; i<=n; i++){
+        output[0] = cost[0];
+        output[1] = cost[1];
+        for(int i=2; i<n; i++){
+            int a = output[i-1];
+            int b = output[i-2];
             
-//         }
+            output[i] = cost[i] + min(a, b);
+        }
+        
+        int ans = min(output[n-1], output[n-2]);
         return ans;
     }
 };
