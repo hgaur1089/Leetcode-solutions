@@ -23,12 +23,20 @@ public:
     int minCostClimbingStairs(vector<int>& cost) {
         int n = cost.size();
         int* output = new int[n+1];
+        
+        // memoization
         for(int i=0; i<=n; i++){
             output[i] = -1;
         }
         int a = minCost(cost, n-1, output);
         int b = minCost(cost, n-2, output);
         int ans = min(a, b);
+        
+//         output[0] = cost[0];
+//         output[1] = cost[1];
+//         for(int i=0; i<=n; i++){
+            
+//         }
         return ans;
     }
 };
