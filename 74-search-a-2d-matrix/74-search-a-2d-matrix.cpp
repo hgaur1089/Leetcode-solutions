@@ -4,15 +4,17 @@ public:
         int n = matrix.size();
         int m = matrix[0].size();
         
-        int i = 0;
-        int j = m-1;
-        while(i<n && j>=0){
-            if(matrix[i][j] == target){
+        int lo = 0;
+        int hi = n*m - 1;
+        
+        while(lo<=hi){
+            int mid = (lo + (hi-lo)/2);
+            if(matrix[mid/m][mid%m] == target){
                 return true;
-            } else if(target > matrix[i][j]){
-                i++;
+            } else if(target > matrix[mid/m][mid%m]){
+                lo = mid+1;
             } else {
-                j--;
+                hi = mid-1;
             }
         }
         
