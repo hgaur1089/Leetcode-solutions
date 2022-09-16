@@ -1,27 +1,26 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        unordered_map<int, bool> map;
-        for(int i=0; i<nums.size(); i++){
-            map[nums[i]] = true;
+        set<int> hashSet;
+        for(int num:nums){
+            hashSet.insert(num);
         }
         
-        int ans=0;
-        for(int i=0; i<nums.size(); i++){
-            int temp = nums[i];
-            if(map.find(temp - 1) != map.end()){
-                continue;
-            } else {
-                int count = 0;
-                while(map.find(temp) != map.end()){
-                    temp++;
-                    count++;
+        int longestStreak = 0;
+        for(auto num:nums){
+            if(hashSet.count(num-1) < 1){
+                int currNum = num;
+                int currStreak = 1;
+                
+                while(hashSet.count(currNum+1)>0){
+                    currNum += 1;
+                    currStreak += 1;
                 }
                 
-                ans = max(ans, count);
+                longestStreak = max(longestStreak, currStreak);
             }
         }
         
-        return ans;
+        return longestStreak;
     }
 };
