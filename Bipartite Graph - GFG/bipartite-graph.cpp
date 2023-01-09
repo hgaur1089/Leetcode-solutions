@@ -4,29 +4,30 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
+    bool bipartite(int start, int initColor,  vector<int> &color,  vector<int>adj[] ){
+        color[start] = initColor;
+        for(auto it: adj[start]){
+            if(color[it]==-1){
+                if(!bipartite(it, !initColor, color, adj)){
+                    return false;
+                }
+            } else if(color[it] == initColor){
+                return false;
+            }
+        }
+        
+        return true;
+    }
 public:
 	bool isBipartite(int V, vector<int>adj[]){
 	    // Code here
-	    queue<int> q;
 	    vector<int> color(V, -1);
-	    color[0] = -1;
-	    
-	    for(int i=0;i<V;i++)
-    	    if(color[i]==-1){
-    	        q.push(i);
-        	    while(!q.empty()){
-        	        int node = q.front();
-        	        q.pop();
-        	        for(auto it: adj[node]){
-        	            if(color[it]==-1){
-        	                color[it] = !color[node];
-        	                q.push(it);
-        	            } else if(color[it]==color[node]){
-        	                return false;
-        	            }
-        	        }
-        	    }
-    	    }
+	    for(int i=0;i<V;i++){
+	        if(color[i]==-1)
+	        if(!bipartite(i, 0, color, adj)){
+	            return false;
+	        }
+	    }
 	    
 	    return true;
 	}
